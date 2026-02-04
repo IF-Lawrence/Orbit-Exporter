@@ -1,7 +1,7 @@
 {
   "name": "orbit-exporter",
   "description": "Enhanced version: Export tweets, bookmarks, lists and much more from Twitter(X) web app. Features auto-start capture.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Lawrence",
   "license": "MIT",
   "homepage": "https://github.com/IF-Lawrence/X-web-exporter",

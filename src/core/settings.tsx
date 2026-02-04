@@ -19,7 +19,7 @@ import { saveFile } from '@/utils/exporter';
 
 import { db } from './database';
 import extensionManager from './extensions';
-import { DEFAULT_APP_OPTIONS, options, THEMES } from './options';
+import { DEFAULT_APP_OPTIONS, options } from './options';
 import { autoScroller } from '@/utils/auto-scroller';
 import { dateRangeFilter } from '@/utils/date-filter';
 import { captureController } from './capture-controller';
@@ -27,7 +27,7 @@ import { captureController } from './capture-controller';
 export function Settings() {
   const { t, i18n } = useTranslation();
 
-  const currentTheme = useSignal(options.get('theme'));
+
   const autoScrollRunning = useSignal(autoScroller.isRunning());
 
   const styles = {
@@ -306,23 +306,7 @@ export function Settings() {
               <span class="font-medium">{t('General')}</span>
             </div>
             <div class="collapse-content flex flex-col gap-2">
-              <label class={styles.item}>
-                <span class="label-text whitespace-nowrap">{t('Theme')}</span>
-                <select
-                  class="select select-xs"
-                  onChange={(e) => {
-                    currentTheme.value =
-                      (e.target as HTMLSelectElement)?.value ?? DEFAULT_APP_OPTIONS.theme;
-                    options.set('theme', currentTheme.value);
-                  }}
-                >
-                  {THEMES.map((theme) => (
-                    <option key={theme} value={theme} selected={currentTheme.value === theme}>
-                      {capitalizeFirstLetter(theme)}
-                    </option>
-                  ))}
-                </select>
-              </label>
+
               <label class={styles.item}>
                 <span class="label-text whitespace-nowrap">{t('Language')}</span>
                 <select

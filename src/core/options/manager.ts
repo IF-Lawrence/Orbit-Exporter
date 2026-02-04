@@ -10,6 +10,7 @@ export interface AppOptions {
   theme?: string;
   debug?: boolean;
   showControlPanel?: boolean;
+  panelPosition?: { x: number; y: number };
   disabledExtensions?: string[];
   dateTimeFormat?: string;
   filenamePattern?: string;
@@ -30,9 +31,10 @@ export interface AppOptions {
 }
 
 export const DEFAULT_APP_OPTIONS: AppOptions = {
-  theme: 'system',
+  theme: 'orbit',
   debug: false,
   showControlPanel: true,
+  panelPosition: { x: 32, y: 32 },
   disabledExtensions: [
     'HomeTimelineModule',
     'ListTimelineModule',
@@ -60,12 +62,8 @@ export const DEFAULT_APP_OPTIONS: AppOptions = {
   dateFilterEndDate: null,
 };
 
-// https://daisyui.com/docs/themes/
 export const THEMES = [
-  'system',
-  'light',
-  'dim',
-  'dark',
+  'orbit',
 ] as const;
 
 const LOCAL_STORAGE_KEY = packageJson.name;
@@ -106,6 +104,13 @@ export class AppOptionsManager {
 
     const oldVersion = this.appOptions.version ?? '';
     const newVersion = DEFAULT_APP_OPTIONS.version ?? '';
+
+
+    // Force theme to orbit if it's not valid
+    if (!THEMES.includes(this.appOptions.theme as any)) {
+      this.appOptions.theme = 'orbit';
+      setTimeout(() => this.saveAppOptions(), 0);
+    }
 
     // Migrate from v1.0 to v1.1.
     if (newVersion.startsWith('1.1') && oldVersion.startsWith('1.0')) {
